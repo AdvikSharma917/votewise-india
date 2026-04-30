@@ -14,6 +14,20 @@ const recommendationPatterns = [
   /\bvote\s+for\s+(bjp|congress|aap|dmk|tmc|candidate)\b/i
 ];
 
+const GEMINI_BUSY_MARKERS = ["unavailable", "high demand", "overloaded", "busy"];
+const VIEW_ROUTES = new Set(["home", "learn", "simulator", "ai-guide", "glossary", "quiz", "teacher", "settings"]);
+const LEGACY_SECTION_ROUTES = {
+  top: "home",
+  timeline: "learn",
+  journey: "learn",
+  pathway: "learn",
+  scenarios: "learn",
+  myths: "learn",
+  misinformation: "learn",
+  faq: "learn",
+  accessibility: "settings"
+};
+
 export function sanitizeQuestion(input) {
   return String(input ?? "")
     .replace(/\s+/g, " ")
@@ -32,12 +46,7 @@ export function getSafeRefusal() {
 
 export function getGeminiServiceMessage(status, detail = "") {
   const normalizedDetail = String(detail || "").toLowerCase();
-  const isBusy =
-    Number(status) === 503 ||
-    normalizedDetail.includes("unavailable") ||
-    normalizedDetail.includes("high demand") ||
-    normalizedDetail.includes("overloaded") ||
-    normalizedDetail.includes("busy");
+  const isBusy = Number(status) === 503 || GEMINI_BUSY_MARKERS.some((marker) => normalizedDetail.includes(marker));
 
   if (isBusy) {
     return "Gemini is temporarily busy. Please try again in a minute. You can still use the journey, simulator, glossary, myth cards, and quiz while it catches up.";
@@ -168,25 +177,13 @@ export function createVoteReadyCertificate(result, learnerName = "Learner") {
 
 export function resolveViewRoute(hash) {
   const raw = String(hash || "#home").replace(/^#/, "") || "home";
-  const viewRoutes = new Set(["home", "learn", "simulator", "ai-guide", "glossary", "quiz", "teacher", "settings"]);
-  const sectionToView = {
-    top: "home",
-    timeline: "learn",
-    journey: "learn",
-    pathway: "learn",
-    scenarios: "learn",
-    myths: "learn",
-    misinformation: "learn",
-    faq: "learn",
-    accessibility: "settings"
-  };
 
-  if (viewRoutes.has(raw)) {
+  if (VIEW_ROUTES.has(raw)) {
     return { view: raw, targetId: "" };
   }
 
-  if (sectionToView[raw]) {
-    return { view: sectionToView[raw], targetId: raw };
+  if (LEGACY_SECTION_ROUTES[raw]) {
+    return { view: LEGACY_SECTION_ROUTES[raw], targetId: raw };
   }
 
   return { view: "home", targetId: "" };

@@ -2,6 +2,8 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+const MAX_REPO_SIZE_MB = 10;
+const SIZE_CHECK_IGNORED_ENTRIES = new Set([".git", "node_modules", "dist", "build", ".env"]);
 const requiredFiles = [
   "public/index.html",
   "public/styles.css",
@@ -53,13 +55,12 @@ assert(
   "firebase.json must include an /api/** rewrite to Cloud Run"
 );
 
-const repoSize = getDirectorySize(root, new Set([".git", "node_modules", "dist", "build", ".env"]));
+const repoSize = getDirectorySize(root, SIZE_CHECK_IGNORED_ENTRIES);
 const repoSizeMb = repoSize / 1024 / 1024;
-const maxSizeMb = 10;
-assert(repoSizeMb <= maxSizeMb, `Repo size check failed: ${repoSizeMb.toFixed(1)} MB / ${maxSizeMb} MB`);
+assert(repoSizeMb <= MAX_REPO_SIZE_MB, `Repo size check failed: ${repoSizeMb.toFixed(1)} MB / ${MAX_REPO_SIZE_MB} MB`);
 
 console.log("Build check passed: required files, disclaimers, security headers, and frontend secret scan are clean.");
-console.log(`Repo size check passed: ${repoSizeMb.toFixed(1)} MB / ${maxSizeMb} MB`);
+console.log(`Repo size check passed: ${repoSizeMb.toFixed(1)} MB / ${MAX_REPO_SIZE_MB} MB`);
 
 function read(file) {
   return readFileSync(path.join(root, file), "utf8");

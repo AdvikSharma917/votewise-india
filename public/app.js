@@ -37,7 +37,9 @@ const appState = {
   sectionObserver: null
 };
 
-const candidateOptions = ["Candidate A", "Candidate B", "Candidate C", "NOTA"];
+const APP_VIEW_ORDER = ["home", "learn", "simulator", "ai-guide", "glossary", "quiz", "teacher", "settings"];
+const CANDIDATE_OPTIONS = ["Candidate A", "Candidate B", "Candidate C", "NOTA"];
+const TOOLTIP_TERMS = ["Model Code of Conduct", "Electoral Roll", "Constituency", "VVPAT", "NOTA", "EVM"];
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const els = {
@@ -186,9 +188,8 @@ function bindEvents() {
 
 function setupViews() {
   const main = document.querySelector("#main");
-  const viewOrder = ["home", "learn", "simulator", "ai-guide", "glossary", "quiz", "teacher", "settings"];
   const views = Object.fromEntries(
-    viewOrder.map((name) => {
+    APP_VIEW_ORDER.map((name) => {
       const view = document.createElement("section");
       view.className = "app-view";
       view.dataset.view = name;
@@ -248,7 +249,7 @@ function setupViews() {
   views.settings.append(createViewIntro("Settings", "Adjust accessibility and learning preferences for this device."));
   move("settings", "#accessibility");
 
-  main.replaceChildren(...viewOrder.map((name) => views[name]));
+  main.replaceChildren(...APP_VIEW_ORDER.map((name) => views[name]));
 }
 
 function createViewIntro(title, description) {
@@ -505,7 +506,7 @@ function simplifyPathway(text) {
 
 function renderSimulator() {
   els.evmDevice.classList.toggle("has-vote", appState.vote.hasVoted);
-  els.candidateButtons.innerHTML = candidateOptions
+  els.candidateButtons.innerHTML = CANDIDATE_OPTIONS
     .map(
       (option, index) => `
         <button class="candidate-button ${appState.vote.selected === option ? "selected" : ""}" type="button" data-option="${option}" aria-label="Record simulated vote for ${option}" ${appState.vote.hasVoted ? "disabled" : ""}>
@@ -1097,10 +1098,9 @@ function setFresh(element) {
 }
 
 function withTooltips(text) {
-  const tooltipTerms = ["Model Code of Conduct", "Electoral Roll", "Constituency", "VVPAT", "NOTA", "EVM"];
   let output = escapeHtml(text);
 
-  tooltipTerms.forEach((term) => {
+  TOOLTIP_TERMS.forEach((term) => {
     const item = findGlossaryTerm(glossaryTerms, term);
     if (!item) return;
     const pattern = new RegExp(`\\b${escapeRegExp(term)}\\b`, "g");

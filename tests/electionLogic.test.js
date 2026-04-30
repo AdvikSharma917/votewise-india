@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { quizQuestions } from "../public/lib/electionData.js";
-import { glossaryTerms, misinformationClaims } from "../public/lib/electionData.js";
+import { glossaryTerms, misinformationClaims, quizQuestions } from "../public/lib/electionData.js";
 import {
   checkMisinformationAnswer,
   createVoteReadyCertificate,

@@ -2,8 +2,20 @@
   "hosting": {
     "site": "votewise-india-d6727",
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
+      {
+        "source": "/api/**",
+        "run": {
+          "serviceId": "votewise-india-api",
+          "region": "us-central1",
+          "pinTag": true
+        }
+      },
       {
         "source": "**",
         "destination": "/index.html"

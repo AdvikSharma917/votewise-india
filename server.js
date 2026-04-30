@@ -15,11 +15,15 @@ import { isFirestoreConfigured, saveAnonymousQuizResult } from "./src/firestore.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const publicDir = path.join(__dirname, "public");
+const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+const JSON_BODY_LIMIT_BYTES = 2048;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_REQUESTS = 20;
 
 loadDotEnv();
 
 const port = Number(process.env.PORT || 3000);
-const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const model = process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL;
 
 const requestLog = new Map();
 
@@ -78,7 +82,7 @@ async function handleGuideRequest(req, res) {
     return;
   }
 
-  const body = await readJsonBody(req, 2048);
+  const body = await readJsonBody(req, JSON_BODY_LIMIT_BYTES);
   const validation = validateQuestion(body.question);
 
   if (!validation.ok) {
@@ -123,7 +127,7 @@ async function handleQuizResultRequest(req, res) {
     return;
   }
 
-  const body = await readJsonBody(req, 2048);
+  const body = await readJsonBody(req, JSON_BODY_LIMIT_BYTES);
   const validation = validateAnonymousQuizResult(body);
 
   if (!validation.ok) {
@@ -237,14 +241,12 @@ function readJsonBody(req, limitBytes) {
 function isRateLimited(req) {
   const key = req.socket.remoteAddress || "local";
   const now = Date.now();
-  const windowMs = 60_000;
-  const maxRequests = 20;
-  const history = (requestLog.get(key) || []).filter((time) => now - time < windowMs);
+  const history = (requestLog.get(key) || []).filter((time) => now - time < RATE_LIMIT_WINDOW_MS);
 
   history.push(now);
   requestLog.set(key, history);
 
-  return history.length > maxRequests;
+  return history.length > RATE_LIMIT_MAX_REQUESTS;
 }
 
 function sendJson(res, status, payload) {
