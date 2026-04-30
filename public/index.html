@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="VoteWise India is a non-partisan AI-powered platform for learning the Indian election process through interaction."
+    />
+    <title>VoteWise India | Election Process Education</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#home" aria-label="VoteWise India home">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span>VoteWise India</span>
+        </a>
+        <button class="nav-menu-button" type="button" aria-expanded="false" aria-controls="nav-links">
+          Menu
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#home" data-view-link="home">Home</a>
+          <a href="#learn" data-view-link="learn">Learn</a>
+          <a href="#simulator" data-view-link="simulator">Simulator</a>
+          <a href="#ai-guide" data-view-link="ai-guide">AI Guide</a>
+          <a href="#glossary" data-view-link="glossary">Glossary</a>
+          <a href="#quiz" data-view-link="quiz">Quiz</a>
+          <a href="#teacher" data-view-link="teacher">Teacher</a>
+          <a href="#settings" data-view-link="settings">Settings</a>
+        </div>
+        <button class="icon-toggle" id="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-glyph" aria-hidden="true">◐</span>
+          <span class="sr-only">Toggle dark mode</span>
+        </button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Non-partisan civic learning for India</p>
+            <h1 id="hero-title">VoteWise India</h1>
+            <h2>Learn the election process by experiencing it.</h2>
+            <p>
+              VoteWise India is a non-partisan AI-powered platform that helps students and first-time voters
+              understand registration, electoral rolls, polling day, EVM/VVPAT, counting, and results through
+              interactive simulations and guided learning.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#learn">Start Learning</a>
+              <a class="button secondary" href="#simulator">Try Mock Voting</a>
+            </div>
+            <p class="hero-disclaimer">
+              Educational simulation only. Not an official Election Commission website.
+            </p>
+          </div>
+
+          <div class="hero-visual" aria-label="Preview of VoteWise India learning modules">
+            <div class="visual-stage" aria-hidden="true">
+              <div class="process-orbit">
+                <span>Eligibility</span>
+                <span>Roll</span>
+                <span>EVM</span>
+                <span>Counting</span>
+              </div>
+              <div class="mini-evm">
+                <div class="evm-top">
+                  <span>Mock EVM</span>
+                  <strong>Ready</strong>
+                </div>
+                <div class="evm-row"><span>Candidate A</span><i></i></div>
+                <div class="evm-row"><span>Candidate B</span><i></i></div>
+                <div class="evm-row active"><span>Candidate C</span><i></i></div>
+                <div class="evm-row"><span>NOTA</span><i></i></div>
+                <div class="vvpat-preview">VVPAT verification slip</div>
+              </div>
+              <div class="hero-insight">
+                <span>VoteReady</span>
+                <strong>86%</strong>
+                <small>process confidence</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="notice-band" aria-label="Safety promise">
+        <p>
+          This app teaches process, not politics. It never recommends or opposes any party or candidate.
+        </p>
+      </section>
+
+      <section class="section timeline-section" id="timeline" aria-labelledby="timeline-title">
+        <div class="section-heading">
+          <p class="eyebrow">Before / During / After</p>
+          <h2 id="timeline-title">Understand the election process in three simple phases.</h2>
+          <p>A quick timeline for learners who want the full picture before going deeper.</p>
+        </div>
+        <div class="timeline-grid" id="timeline-grid"></div>
+      </section>
+
+      <section class="section" id="journey" aria-labelledby="journey-title">
+        <div class="section-heading">
+          <p class="eyebrow">Election Journey</p>
+          <h2 id="journey-title">Follow the process from eligibility to results.</h2>
+          <p>Select a step to see what it means, why it matters, and a beginner-friendly explanation.</p>
+        </div>
+        <div class="journey-layout">
+          <div class="journey-list" id="journey-list" role="list"></div>
+          <article class="detail-panel" id="journey-detail" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="section tinted" id="pathway" aria-labelledby="pathway-title">
+        <div class="section-heading">
+          <p class="eyebrow">Personalized Voter Pathway</p>
+          <h2 id="pathway-title">Choose your learning route.</h2>
+          <p>Pick the situation closest to you and VoteWise will suggest what to learn next.</p>
+        </div>
+        <div class="pathway-grid" id="pathway-options" role="list"></div>
+        <article class="pathway-output" id="pathway-output" aria-live="polite"></article>
+      </section>
+
+      <section class="section" id="scenarios" aria-labelledby="scenarios-title">
+        <div class="section-heading">
+          <p class="eyebrow">Choose Your Situation</p>
+          <h2 id="scenarios-title">What describes you today?</h2>
+          <p>Select a scenario to get a beginner-friendly path through VoteWise India.</p>
+        </div>
+        <div class="scenario-layout">
+          <div class="scenario-grid" id="scenario-grid" role="list"></div>
+          <article class="scenario-output" id="scenario-output" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="section simulator-section" id="simulator" aria-labelledby="simulator-title">
+        <div class="section-heading">
+          <p class="eyebrow">Mock Voting Simulator</p>
+          <h2 id="simulator-title">Try a fictional EVM/VVPAT flow.</h2>
+          <p>This is a fake educational simulation using only fictional options.</p>
+        </div>
+        <div class="simulator-grid">
+          <div class="evm-device" aria-label="Educational mock EVM">
+            <div class="device-header">
+              <span>Ballot Unit</span>
+              <strong><i aria-hidden="true"></i> Simulation</strong>
+            </div>
+            <p class="machine-note">Fictional ballot. No real parties, candidates, or vote storage.</p>
+            <div class="candidate-buttons" id="candidate-buttons"></div>
+          </div>
+          <div class="vvpat-device" aria-label="VVPAT simulation">
+            <div class="paper-slot" aria-hidden="true"></div>
+            <div class="vvpat-window" id="vvpat-window" aria-live="polite">
+              <span>VVPAT slip appears here after a mock vote.</span>
+            </div>
+            <p class="status-text" id="vote-status" role="status">Choose a fictional option to begin.</p>
+            <button class="button secondary" type="button" id="reset-vote">Reset Simulator</button>
+            <p class="fine-print">
+              This simulator does not store, transmit, or represent real votes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ai-guide" aria-labelledby="ai-title">
+        <div class="section-heading">
+          <p class="eyebrow">AI Election Guide</p>
+          <h2 id="ai-title">Ask about election process, not political preference.</h2>
+          <p>Gemini answers process questions through a non-partisan safety layer.</p>
+        </div>
+        <div class="ai-shell">
+          <form class="ai-form" id="ai-form">
+            <label for="ai-question">Your election process question</label>
+            <textarea
+              id="ai-question"
+              name="question"
+              rows="4"
+              maxlength="500"
+              placeholder="Example: What happens on polling day?"
+            ></textarea>
+            <div class="form-row">
+              <span id="question-count">0/500</span>
+              <button class="button primary" type="submit">Ask Gemini Guide</button>
+            </div>
+          </form>
+          <div class="question-chips" id="question-chips" aria-label="Suggested questions"></div>
+          <article class="ai-answer" id="ai-answer" aria-live="polite">
+            <p>Ask a question or choose a suggestion to begin.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section tinted" id="myths" aria-labelledby="myths-title">
+        <div class="section-heading">
+          <p class="eyebrow">Myth vs Fact</p>
+          <h2 id="myths-title">Replace election confusion with clear basics.</h2>
+        </div>
+        <div class="myth-grid" id="myth-grid"></div>
+      </section>
+
+      <section class="section" id="misinformation" aria-labelledby="misinformation-title">
+        <div class="section-heading">
+          <p class="eyebrow">Misinformation Check</p>
+          <h2 id="misinformation-title">Practice spotting election process myths.</h2>
+          <p>Choose true or false, then read the neutral process explanation.</p>
+        </div>
+        <div class="misinfo-game" id="misinfo-game" aria-live="polite"></div>
+      </section>
+
+      <section class="section tinted" id="glossary" aria-labelledby="glossary-title">
+        <div class="section-heading">
+          <p class="eyebrow">Searchable Glossary</p>
+          <h2 id="glossary-title">Learn the words behind the election process.</h2>
+          <p>Search beginner-friendly definitions, examples, and related terms.</p>
+        </div>
+        <form class="glossary-search" role="search">
+          <label for="glossary-query">Search glossary terms</label>
+          <input id="glossary-query" type="search" placeholder="Try VVPAT, NOTA, electoral roll..." autocomplete="off" />
+          <span id="glossary-count" aria-live="polite"></span>
+        </form>
+        <div class="glossary-grid" id="glossary-grid"></div>
+      </section>
+
+      <section class="section" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Quick answers for common first-time voter questions.</h2>
+          <p>Neutral, process-focused answers only.</p>
+        </div>
+        <div class="faq-list" id="faq-list"></div>
+      </section>
+
+      <section class="section" id="quiz" aria-labelledby="quiz-title">
+        <div class="section-heading">
+          <p class="eyebrow">VoteReady Quiz</p>
+          <h2 id="quiz-title">Check your election process knowledge.</h2>
+          <p>Answer 10 questions and get a VoteReady score with next steps.</p>
+        </div>
+        <form class="quiz-form" id="quiz-form"></form>
+        <article class="quiz-result" id="quiz-result" aria-live="polite"></article>
+        <p class="analytics-status" id="analytics-status" role="status"></p>
+      </section>
+
+      <section class="section accessibility-section" id="accessibility" aria-labelledby="access-title">
+        <div class="section-heading">
+          <p class="eyebrow">Accessibility Options</p>
+          <h2 id="access-title">Adjust the experience.</h2>
+        </div>
+        <button class="accessibility-toggle button secondary" id="accessibility-toggle" type="button" aria-expanded="true" aria-controls="settings-panel">
+          Accessibility Settings
+        </button>
+        <div class="settings-panel is-open" id="settings-panel">
+          <div class="settings-grid" id="settings-grid">
+            <label><input type="checkbox" id="bigger-text" /><span><strong>Bigger text</strong><small>Makes text larger across the site.</small></span></label>
+            <label><input type="checkbox" id="high-contrast" /><span><strong>High contrast</strong><small>Improves visibility for text and controls.</small></span></label>
+            <label><input type="checkbox" id="simple-english" /><span><strong>Simple English</strong><small>Uses simpler wording where supported.</small></span></label>
+            <label><input type="checkbox" id="reduce-motion" /><span><strong>Reduce motion</strong><small>Turns off non-essential animations.</small></span></label>
+            <label><input type="checkbox" id="reading-focus" /><span><strong>Reading focus</strong><small>Reduces visual distraction and emphasizes content.</small></span></label>
+            <label><input type="checkbox" id="theme-sync" /><span><strong>Theme shortcut</strong><small>Switches between light and dark mode here too.</small></span></label>
+          </div>
+          <button class="button secondary" type="button" id="reset-settings">Reset all settings</button>
+          <p class="settings-status" id="settings-status" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        VoteWise India is an educational, non-partisan simulation. It is not an official Election Commission
+        website and does not provide political recommendations.
+      </p>
+      <p>Uses Gemini through a secure server route and is ready for Google/Firebase-style deployment.</p>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
