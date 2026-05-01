@@ -27,6 +27,13 @@ assert(index.includes("./styles.css"), "index.html must load styles.css");
 assert(index.includes("./app.js"), "index.html must load app.js");
 assert(index.includes("not an official Election Commission"), "index.html must include the non-official disclaimer");
 
+const appJs = read("public/app.js");
+const homeMatch = appJs.match(/function createHomeOverview\(\)\s*\{([\s\S]*?)return section;/);
+if (homeMatch) {
+  assert(!homeMatch[1].includes("Built for PromptWars Evaluation"), "Home view MUST NOT include Built for PromptWars Evaluation card.");
+  assert(!homeMatch[1].includes("google-status-card"), "Home view MUST NOT include Google Services Status card.");
+}
+
 const publicFiles = walk(path.join(root, "public")).filter((file) => /\.(html|css|js|json)$/i.test(file));
 const forbiddenFrontendPatterns = [
   /GEMINI_API_KEY/i,

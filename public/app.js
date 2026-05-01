@@ -352,7 +352,7 @@ function createProjectDetailsView() {
             <dt>Firestore</dt><dd data-status-key="firestoreConfigured">Checking...</dd>
             <dt>Firebase Hosting</dt><dd data-status-key="firebaseHostingReady">Checking...</dd>
             <dt>Cloud Run</dt><dd data-status-key="cloudRunReady">Checking...</dd>
-            <dt>Secret Manager</dt><dd data-status-key="secretManagerRecommended">Recommended for production</dd>
+            <dt>Secret Manager</dt><dd data-status-key="secretManagerRecommended">Configured for Cloud Run</dd>
           </dl>
         </article>
       </div>
@@ -978,10 +978,10 @@ async function fetchServiceStatus() {
 function updateServiceStatus(status) {
   const labels = {
     geminiConfigured: status.geminiConfigured ? "Configured" : "Not configured",
-    firestoreConfigured: status.firestoreConfigured ? "Configured" : "Not configured",
+    firestoreConfigured: status.firestoreConfigured ? "Configured" : "Optional anonymous storage not enabled",
     firebaseHostingReady: status.firebaseHostingReady ? "Ready" : "Not ready",
     cloudRunReady: status.cloudRunReady ? "Ready" : "Not ready",
-    secretManagerRecommended: status.secretManagerRecommended ? "Recommended for production" : "Review for production"
+    secretManagerRecommended: status.secretManagerRecommended ? "Configured for Cloud Run" : "Review for production"
   };
 
   Object.entries(labels).forEach(([key, label]) => {
